@@ -334,122 +334,231 @@ class _AgentOrderApprovePageState extends State<AgentOrderApprovePage> {
   }
 }*/
   @override
+//   Widget build(BuildContext context) {
+//     String _capitalize(String input) {
+//       return input[0].toUpperCase() + input.substring(1);
+//     }
+
+//     return Scaffold(
+//         appBar: AppBar(
+//           backgroundColor: Color.fromARGB(255, 68, 158, 71),
+//           leading: IconButton(
+//             onPressed: () {
+//               Navigator.pop(context);
+//             },
+//             icon: Icon(Icons.chevron_left),
+//           ),
+//           title: Text("Orders"),
+//           centerTitle: true,
+//         ),
+//         body: Padding(
+//             padding: const EdgeInsets.all(8.0),
+//             child: FutureBuilder<List<Map<String, dynamic>>>(
+//               future: orders,
+//               builder: (context, snapshot) {
+//                 if (snapshot.connectionState == ConnectionState.waiting) {
+//                   return Center(child: CircularProgressIndicator());
+//                 } else if (snapshot.hasError) {
+//                   return Text('Error: ${snapshot.error}');
+//                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+//                   return Center(child: Text('No orders found.'));
+//                 } else {
+//                   return
+//                       // return Column(
+//                       //   children: [
+//                       //     Text(
+//                       //       "Pending Orders",
+//                       //       style: TextStyle(
+//                       //         fontSize: 20,
+//                       //         fontWeight: FontWeight.bold,
+//                       //       ),
+//                       //     ),
+//                       Expanded(
+//                     child: ListView.builder(
+//                       shrinkWrap: true,
+//                       itemCount: snapshot.data!.length,
+//                       itemBuilder: (context, index) {
+//                         Map<String, dynamic> order = snapshot.data![index];
+//                         return Card(
+//                           margin: EdgeInsets.all(8.0),
+//                           child: ListTile(
+//                             title: Row(
+//                               children: [
+//                                 Icon(Icons.account_circle_rounded, size: 35.0),
+//                                 SizedBox(width: 8.0),
+//                                 Expanded(
+//                                   child: Text(
+//                                     '${order['userName']}',
+//                                     style: TextStyle(
+//                                       fontSize: 18,
+//                                       fontWeight: FontWeight.bold,
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 SizedBox(width: 16.0),
+//                                 ElevatedButton(
+//                                   onPressed: () async {
+//                                     try {
+//                                       await approveOrder(order['orderId']);
+//                                       setState(() {
+//                                         orders = getOrders();
+//                                       });
+//                                     } on Exception catch (error) {
+//                                       print("Error approving order: $error");
+//                                     }
+//                                   },
+//                                   child: Text('Approve'),
+//                                 ),
+//                               ],
+//                             ),
+//                             subtitle: Padding(
+//                               padding: const EdgeInsets.only(left: 30),
+//                               child: Table(
+//                                 defaultVerticalAlignment:
+//                                     TableCellVerticalAlignment.middle,
+//                                 columnWidths: {
+//                                   0: FlexColumnWidth(3),
+//                                   1: FlexColumnWidth(1),
+//                                 },
+//                                 children: [
+//                                   for (var entry in order.entries)
+//                                     if (entry.key != 'userName' &&
+//                                         entry.key != 'orderId' &&
+//                                         entry.key != 'agent' &&
+//                                         entry.key != 'user' &&
+//                                         entry.key != 'approved')
+//                                       TableRow(
+//                                         children: [
+//                                           TableCell(
+//                                             child: Text(
+//                                                 "${_capitalize(entry.key)}"),
+//                                           ),
+//                                           TableCell(
+//                                             child: Text("${entry.value} kg"),
+//                                           ),
+//                                         ],
+//                                       ),
+//                                 ],
+//                               ),
+//                             ),
+//                           ),
+//                         );
+//                       },
+//                     ),
+//                   );
+//                   //   ],
+//                   // );
+//                 }
+//               },
+//             )));
+//   }
+// }
+  @override
   Widget build(BuildContext context) {
     String _capitalize(String input) {
       return input[0].toUpperCase() + input.substring(1);
     }
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 68, 158, 71),
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.chevron_left),
-          ),
-          title: Text("Orders"),
-          centerTitle: true,
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 68, 158, 71),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.chevron_left),
         ),
-        body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FutureBuilder<List<Map<String, dynamic>>>(
-              future: orders,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text('No orders found.'));
-                } else {
-                  return
-                      // return Column(
-                      //   children: [
-                      //     Text(
-                      //       "Pending Orders",
-                      //       style: TextStyle(
-                      //         fontSize: 20,
-                      //         fontWeight: FontWeight.bold,
-                      //       ),
-                      //     ),
-                      Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        Map<String, dynamic> order = snapshot.data![index];
-                        return Card(
-                          margin: EdgeInsets.all(8.0),
-                          child: ListTile(
-                            title: Row(
-                              children: [
-                                Icon(Icons.account_circle_rounded, size: 35.0),
-                                SizedBox(width: 8.0),
-                                Expanded(
-                                  child: Text(
-                                    '${order['userName']}',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+        title: Text("Orders"),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: FutureBuilder<List<Map<String, dynamic>>>(
+            future: orders,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return Center(child: Text('No orders found.'));
+              } else {
+                return Column(
+                  children: [
+                    for (int index = 0; index < snapshot.data!.length; index++)
+                      Card(
+                        margin: EdgeInsets.all(8.0),
+                        child: ListTile(
+                          title: Row(
+                            children: [
+                              Icon(Icons.account_circle_rounded, size: 35.0),
+                              SizedBox(width: 8.0),
+                              Expanded(
+                                child: Text(
+                                  '${snapshot.data![index]['userName']}',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(width: 16.0),
-                                ElevatedButton(
-                                  onPressed: () async {
-                                    try {
-                                      await approveOrder(order['orderId']);
-                                      setState(() {
-                                        orders = getOrders();
-                                      });
-                                    } on Exception catch (error) {
-                                      print("Error approving order: $error");
-                                    }
-                                  },
-                                  child: Text('Approve'),
-                                ),
+                              ),
+                              SizedBox(width: 16.0),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  try {
+                                    await approveOrder(
+                                        snapshot.data![index]['orderId']);
+                                    setState(() {
+                                      orders = getOrders();
+                                    });
+                                  } on Exception catch (error) {
+                                    print("Error approving order: $error");
+                                  }
+                                },
+                                child: Text('Approve'),
+                              ),
+                            ],
+                          ),
+                          subtitle: Padding(
+                            padding: const EdgeInsets.only(left: 30),
+                            child: Table(
+                              defaultVerticalAlignment:
+                                  TableCellVerticalAlignment.middle,
+                              columnWidths: {
+                                0: FlexColumnWidth(3),
+                                1: FlexColumnWidth(1),
+                              },
+                              children: [
+                                for (var entry in snapshot.data![index].entries)
+                                  if (entry.key != 'userName' &&
+                                      entry.key != 'orderId' &&
+                                      entry.key != 'agent' &&
+                                      entry.key != 'user' &&
+                                      entry.key != 'approved')
+                                    TableRow(
+                                      children: [
+                                        TableCell(
+                                          child:
+                                              Text("${_capitalize(entry.key)}"),
+                                        ),
+                                        TableCell(
+                                          child: Text("${entry.value} kg"),
+                                        ),
+                                      ],
+                                    ),
                               ],
                             ),
-                            subtitle: Padding(
-                              padding: const EdgeInsets.only(left: 30),
-                              child: Table(
-                                defaultVerticalAlignment:
-                                    TableCellVerticalAlignment.middle,
-                                columnWidths: {
-                                  0: FlexColumnWidth(3),
-                                  1: FlexColumnWidth(1),
-                                },
-                                children: [
-                                  for (var entry in order.entries)
-                                    if (entry.key != 'userName' &&
-                                        entry.key != 'orderId' &&
-                                        entry.key != 'agent' &&
-                                        entry.key != 'user' &&
-                                        entry.key != 'approved')
-                                      TableRow(
-                                        children: [
-                                          TableCell(
-                                            child: Text(
-                                                "${_capitalize(entry.key)}"),
-                                          ),
-                                          TableCell(
-                                            child: Text("${entry.value} kg"),
-                                          ),
-                                        ],
-                                      ),
-                                ],
-                              ),
-                            ),
                           ),
-                        );
-                      },
-                    ),
-                  );
-                  //   ],
-                  // );
-                }
-              },
-            )));
+                        ),
+                      ),
+                  ],
+                );
+              }
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
